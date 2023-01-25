@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String getUserInfo(@PathVariable("id") Long id, Model model)  throws AuthenticationException{
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String getUserInfo(@PathVariable("id") Long id, Model model,
+                              @AuthenticationPrincipal User user)  throws AuthenticationException{
         if (user.getId() != id) {
             throw new AuthenticationException();
         }
