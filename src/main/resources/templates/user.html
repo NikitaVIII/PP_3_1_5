@@ -1,11 +1,85 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Spring Security Example</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>User panel</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<!--header-->
+<header>
+    <div class="row bg-dark">
+        <nav class="navbar navbar-light bg-dark">
+            <div class="container-fluid text-white">
+                <span th:text="${user.getUsername() + ' with roles:  ' + user.getRolesAsString()}"/>
+                <form th:action="@{/logout}" th:method="POST">
+                    <input id="logout-button" type="submit" class="text-end btn text-secondary" value="Logout">
+                </form>
+            </div>
+        </nav>
+    </div>
+</header>
+<!--header-->
 
 
+<div class="container-fluid h-100">
+    <div class="row">
+        <!--left panel-->
+        <div class="col-md-2 g-0 py-4">
+            <nav class="nav nav-pills flex-column">
+                <a class="nav-link active" id="pills-home-tab"
+                   data-bs-toggle="pill" href="#" role="tab"
+                   aria-controls="pills-home" aria-selected="true">User</a>
+            </nav>
+        </div>
+        <!--left panel-->
+
+        <!--right panel-->
+        <div class="col-md-10 bg-light gx-5 py-3 tab-content vh-100">
+            <h2>User information-page</h2>
+            <div class="card">
+                <h5 class="card-header">About user</h5>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:object="${user}">
+                            <td th:text="${user.getId()}"></td>
+                            <td th:text="${user.getUsername()}"></td>
+                            <td th:text="${user.getLastName()}"></td>
+                            <td th:text="${user.getAge()}"></td>
+                            <td th:text="${user.getUsername()}"></td>
+                            <td th:text="${user.getRolesAsString()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--right panel-->
+
+    </div>
+</div>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 </html>

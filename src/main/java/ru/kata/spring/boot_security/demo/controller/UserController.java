@@ -20,22 +20,13 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
-    private final RoleService roleService;
 
-    public UserController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
+    public UserController() {
     }
 
-    @GetMapping("/{id}")
-    public String getUserInfo(@PathVariable("id") Long id, Model model,
-                              @AuthenticationPrincipal User user)  throws AuthenticationException{
-        if (user.getId() != id) {
-            throw new AuthenticationException();
-        }
+    @GetMapping()
+    public String getUserInfo(Model model, @AuthenticationPrincipal User user)  {
         model.addAttribute("user", user);
-        model.addAttribute("roles", user.getRoleSet());
-        return "/users/user_info";
+        return "/user";
     }
 }

@@ -113,6 +113,15 @@ public class User implements UserDetails {
         this.email = username;
     }
 
+    public String getRolesAsString() {
+        StringBuilder s = new StringBuilder();
+        for (Role role : roleSet) {
+            s.append(role.getRoleName());
+            s.append(" ");
+        }
+        return s.toString().replaceAll("ROLE_", "");
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -131,5 +140,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + "-" + lastName + "-" + email + "-" + age + "-" + getRolesAsString();
     }
 }
