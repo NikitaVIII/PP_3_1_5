@@ -1,6 +1,9 @@
 package ru.kata.spring.boot_security.demo.service;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -47,7 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getUserById(Long id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -61,4 +64,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
+//    @Override
+//    public User getCurrentUser(){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        return userRepository.findByUsername(auth.getName()).get();
+//    }
 }

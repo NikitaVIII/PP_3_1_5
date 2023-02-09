@@ -18,7 +18,7 @@
     <div class="row bg-dark">
         <nav class="navbar navbar-light bg-dark">
             <div class="container-fluid text-white">
-                <span th:text="${user.getUsername() + ' with roles:  ' + user.getRolesAsString()}"/>
+                <div id="user-info"></div>
                 <form th:action="@{/logout}" th:method="POST">
                     <input id="logout-button" type="submit" class="text-end btn text-secondary" value="Logout">
                 </form>
@@ -58,15 +58,7 @@
                             <th scope="col">Role</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr th:object="${user}">
-                            <td th:text="${user.getId()}"></td>
-                            <td th:text="${user.getUsername()}"></td>
-                            <td th:text="${user.getLastName()}"></td>
-                            <td th:text="${user.getAge()}"></td>
-                            <td th:text="${user.getUsername()}"></td>
-                            <td th:text="${user.getRolesAsString()}"></td>
-                        </tr>
+                        <tbody id="user-table">
                         </tbody>
                     </table>
                 </div>
@@ -77,9 +69,13 @@
     </div>
 </div>
 
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="/user.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
