@@ -1,33 +1,13 @@
 const urlAdmin = "/api/admin";
 let roleList = [];
-const urlUser = "/api/user";
 const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
 
 
 getAllUsers();
 
-
-//filling header and user-table
-function getCurrentUser(){
-    $.getJSON(urlUser, function (user) {
-        $("#user-info").append("<span>" + user.username + " with roles: " +
-            user.roleSet.map(role => role.roleName).join(' ').replaceAll("ROLE_", "") + "</span>");
-
-        $("#user-table").append("<tr> " +
-            "<td>" + user.id  + "</td>" +
-            "<td>"+ user.firstName +"</td>" +
-            "<td>"+ user.lastName +"</td>" +
-            "<td>"+ user.age +"</td>" +
-            "<td>"+ user.username +"</td>" +
-            "<td>"+ user.roleSet.map(role => role.roleName).join(' ').replaceAll("ROLE_", "") +"</td>" +
-            + "</tr>");
-    });
-}
-
 function getAllUsers() {
     getRoles();
-    getCurrentUser();
     $.getJSON(urlAdmin, function (users) {
         let result = "";
         $.each(users, function (key, user) {
@@ -65,6 +45,7 @@ function refreshUsersTable() {
     $("#all-users-table").empty();
     $("#user-table").empty();
     $("#user-info").empty();
+    getCurrentUser();
     getAllUsers();
 }
 
