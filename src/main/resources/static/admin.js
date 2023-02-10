@@ -142,7 +142,7 @@ $("#new-user-button").on("click", (e) => {
         password: $("#new-user-password").val(),
         roleSet: getNewUserRoles()
     }
-    console.log(JSON.stringify(newUser));
+
 
     $.ajax({
             url: urlAdmin,
